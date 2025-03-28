@@ -5,6 +5,7 @@ import Image from "next/image"
 import { SectionHeader } from "@/components/section-header"
 import { Button } from "@/components/ui/button"
 import { FileText, Github, Linkedin } from "lucide-react"
+import Link from "next/link"
 
 export function IntroSection() {
   return (
@@ -49,23 +50,29 @@ export function IntroSection() {
             </p>
 
             <div className="pt-4 flex flex-wrap gap-4">
-              <Button className="bg-amber-700 hover:bg-amber-800 text-white">
-                <FileText className="mr-2 h-4 w-4" /> Download Resume
-              </Button>
+              <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                <Button className="bg-amber-700 hover:bg-amber-800 text-white">
+                  <FileText className="mr-2 h-4 w-4" /> Download Resume
+                </Button>
+              </Link>
 
-              <Button
-                variant="outline"
-                className="border-amber-700 text-amber-700 hover:bg-amber-50 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-zinc-800"
-              >
-                <Github className="mr-2 h-4 w-4" /> GitHub
-              </Button>
+              <Link href="https://github.com/monroestephenson" target="_blank" rel="noopener noreferrer">
+                <Button
+                  variant="outline"
+                  className="border-amber-700 text-amber-700 hover:bg-amber-50 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-zinc-800"
+                >
+                  <Github className="mr-2 h-4 w-4" /> GitHub
+                </Button>
+              </Link>
 
-              <Button
-                variant="outline"
-                className="border-amber-700 text-amber-700 hover:bg-amber-50 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-zinc-800"
-              >
-                <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
-              </Button>
+              <Link href="https://linkedin.com/in/monroe-stephenson" target="_blank" rel="noopener noreferrer">
+                <Button
+                  variant="outline"
+                  className="border-amber-700 text-amber-700 hover:bg-amber-50 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-zinc-800"
+                >
+                  <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
+                </Button>
+              </Link>
             </div>
           </div>
         </motion.div>

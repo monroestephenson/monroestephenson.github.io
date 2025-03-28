@@ -20,7 +20,7 @@ export function WorkSection() {
     {
       company: "Project Eaden",
       role: "Software Engineer - Data",
-      period: "2023 - 2025",
+      period: "2024 - 2025",
       description:
         "Developed Python-based REST APIs and automated CI/CD pipelines using AWS (Lambda, Docker), reducing deployment time by 50%. Built scalable data processing workflows using FastAPI and serverless components.",
       skills: ["Python", "FastAPI", "AWS Lambda", "Docker", "Serverless"],

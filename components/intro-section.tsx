@@ -12,7 +12,7 @@ export function IntroSection() {
     <div>
       <SectionHeader
         title="Introduction"
-        subtitle="Software engineer with a passion for building scalable, cloud-based applications and contributing to open-source projects."
+        subtitle="Software engineer and AI researcher building advanced systems for complex data problems."
       />
 
       <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -35,18 +35,15 @@ export function IntroSection() {
         >
           <div className="space-y-6">
             <p className="text-lg">
-              Hello, I'm Monroe Stephenson. I specialize in designing and deploying scalable, cloud-based applications
-              with expertise in Python development, RESTful APIs, and containerization on AWS.
+              Hello, I'm Monroe Stephenson. I'm a Founding Engineer at Cloudsquid building high-performance data infrastructure for AI systems. I specialize in architecting real-time, event-driven pipelines and cloud-native solutions using Go, gRPC, Kafka, and AWS.
             </p>
 
             <p className="text-lg">
-              My background in mathematics provides me with a strong analytical foundation, while my passion for
-              technology drives me to continuously explore new tools and methodologies.
+              My background combines software engineering with machine learning research, supported by strong foundations in mathematics and statistics. This interdisciplinary approach helps me design interpretable AI systems and transform unstructured data into valuable insights.
             </p>
 
             <p className="text-lg">
-              I'm currently pursuing my M.S. in Computer Science at Georgia Institute of Technology, focusing on
-              Distributed Systems, Cloud Computing, and Advanced Machine Learning.
+              I'm currently pursuing my M.S. in Computer Science at Georgia Institute of Technology, focusing on Distributed Systems, Cloud Computing, and Advanced Machine Learning. Previously, I conducted research on ML interpretability as a Fulbright Scholar at the Max Planck Institute.
             </p>
 
             <div className="pt-4 flex flex-wrap gap-4">

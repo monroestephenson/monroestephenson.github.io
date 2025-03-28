@@ -31,6 +31,22 @@ jobs:
       - name: Build
         run: npm run build
         
+      - name: Verify build output
+        run: |
+          echo "Checking output directory structure:"
+          ls -la out/
+          echo "Ensuring index.html exists:"
+          if [ -f "out/index.html" ]; then
+            echo "✓ index.html found"
+          else
+            echo "⨯ index.html not found"
+            echo "Creating a basic index.html..."
+            echo '<meta http-equiv="refresh" content="0;url=./app">' > out/index.html
+          fi
+      
+      - name: Create .nojekyll file
+        run: touch out/.nojekyll
+        
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:

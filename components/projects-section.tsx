@@ -31,7 +31,7 @@ export function ProjectsSection() {
     {
       title: "Hegemon",
       description: "A powerful and secure command-line tool for managing database backups, written in modern C++.",
-      image: "/placeholder.svg",
+      image: "/hegemon.png",
       tags: ["C++", "CLI", "Database", "Backup"],
       githubUrl: "https://github.com/monroestephenson/hegemon",
       liveUrl: "",
@@ -79,7 +79,7 @@ export function ProjectsSection() {
             <Card className="h-full flex flex-col overflow-hidden border-stone-200 dark:border-zinc-800 shadow-md hover:shadow-lg transition-shadow duration-300">
               <div className={`relative h-48 w-full overflow-hidden ${project.bgColor}`}>
                 <div className="absolute inset-0 flex items-center justify-center p-6">
-                  {project.title === "Sprawl" ? (
+                  {project.title === "Sprawl" || project.title === "Hegemon" ? (
                     <Image
                       src={project.image}
                       alt={project.title}

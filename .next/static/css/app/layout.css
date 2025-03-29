@@ -679,13 +679,16 @@ video {
 
   /* Add smooth transition for theme changes */
   :root {
-    --theme-transition-duration: 0.5s;
+    --theme-transition-duration: 1.2s;
   }
   
-  *, *::before, *::after {
+  /* Apply transitions to all elements */
+  *,
+  *::before,
+  *::after {
     transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
     transition-duration: var(--theme-transition-duration);
-    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   /* Exceptions - don't transition these properties */
@@ -2237,6 +2240,12 @@ video {
 }
 .ease-out {
   animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Apply smooth transitions to HTML and BODY elements specifically */
+html,
+body {
+  transition: background-color 1.2s ease, color 1.2s ease;
 }
 
 /* Smooth scrolling */

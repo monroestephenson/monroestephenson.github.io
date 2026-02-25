@@ -9,13 +9,13 @@ import { Cloud, Database, Code, Cpu } from "lucide-react"
 export function WorkSection() {
   const workExperience = [
     {
-      company: "Cloudsquid",
+      company: "CloudSquid",
       location: "Berlin, Germany",
       role: "Founding Engineer",
       period: "Apr 2024 - Present",
       description:
-        "Architecting and optimizing real-time, event-driven AI data pipelines in Go, enhancing observability and explainability for large-scale unstructured data processing. Building high-throughput systems with gRPC, Kafka, and ClickHouse, enabling scalable infrastructure for ML model deployment and monitoring. Driving technical strategy with the founding team, shaping product direction and ensuring reliability, scalability, and performance from prototype to production.",
-      skills: ["Go", "gRPC", "Kafka", "ClickHouse", "AI Pipelines", "Data Engineering"],
+        "Leading engineering across CloudSquid's production AI document extraction and workflow platform. Core ownership includes Go REST APIs, Temporal worker orchestration, MCP server integration, and a Next.js frontend, plus a multi-provider LLM runtime (Gemini, Claude, OpenAI) with structured outputs, retries, and fallback behavior. I also work on multi-tenant data architecture, privacy features like zero-retention mode, and observability/event logging for reliable operations.",
+      skills: ["Go", "Temporal", "Next.js", "PostgreSQL", "MCP", "Gemini/Claude/OpenAI"],
       icon: <Cloud className="h-8 w-8 text-amber-700 dark:text-amber-500" />,
     },
     {
@@ -54,7 +54,7 @@ export function WorkSection() {
     <div>
       <SectionHeader
         title="Work Experience"
-        subtitle="My professional journey building scalable software solutions and AI systems across Europe and remotely."
+        subtitle="Experience building production platform systems across AI, data, and applied ML."
       />
 
       <div className="space-y-8">

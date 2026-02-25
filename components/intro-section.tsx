@@ -12,7 +12,7 @@ export function IntroSection() {
     <div>
       <SectionHeader
         title="Introduction"
-        subtitle="Software engineer and AI researcher building advanced systems for complex data problems."
+        subtitle="Founding engineer building production AI platform systems for complex document and workflow automation."
       />
 
       <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -35,15 +35,15 @@ export function IntroSection() {
         >
           <div className="space-y-6">
             <p className="text-lg">
-              Hello, I'm Monroe Stephenson. I'm a Founding Engineer at Cloudsquid building high-performance data infrastructure for AI systems. I specialize in architecting real-time, event-driven pipelines and cloud-native solutions using Go, gRPC, Kafka, and AWS.
+              Hello, I'm Monroe Stephenson. I'm a Founding Engineer at CloudSquid, where I build and run production AI systems end to end: Go APIs, Temporal workers, an MCP tool server, and a Next.js product surface for document extraction and workflow automation.
             </p>
 
             <p className="text-lg">
-              My background combines software engineering with machine learning research, supported by strong foundations in mathematics and statistics. This interdisciplinary approach helps me design interpretable AI systems and transform unstructured data into valuable insights.
+              My work centers on reliable multi-tenant platform architecture — per-user data isolation, schema-driven extraction, model routing across Gemini/Claude/OpenAI, and observability that makes complex AI workflows debuggable in production.
             </p>
 
             <p className="text-lg">
-              I'm currently pursuing my M.S. in Computer Science at Georgia Institute of Technology, focusing on Distributed Systems, Cloud Computing, and Advanced Machine Learning. Previously, I conducted research on ML interpretability as a Fulbright Scholar at the Max Planck Institute.
+              I combine software engineering with machine learning research. I'm currently pursuing an M.S. in Computer Science at Georgia Tech, and previously worked on ML interpretability as a Fulbright Scholar at the Max Planck Institute.
             </p>
 
             <div className="pt-4 flex flex-wrap gap-4">

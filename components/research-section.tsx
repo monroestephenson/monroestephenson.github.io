@@ -28,8 +28,8 @@ export function ResearchSection() {
       institution: "Hebrew University",
       supervisor: "Karim Adiprasito",
       description:
-        "We prove that the Gorensteinification of the face ring of a cycle is totally p-anisotropic in characteristic p. In other words, given an appropriate Artinian reduction, it contains no nonzero p-isotropic elements. Moreover, we prove that the linear system of parameters can be chosen corresponding to a geometric realization with points on the moment curve. In particular, this implies that the parameters do not have to be chosen very generically.",
-      link: "https://www.arxiv.org/abs/2502.05681",
+        "We prove that the Gorensteinification of the face ring of a cycle is totally p-anisotropic in characteristic p. In other words, given an appropriate Artinian reduction, it contains no nonzero p-isotropic elements. Moreover, we prove that the linear system of parameters can be chosen corresponding to a geometric realization with points on the moment curve. Published in Combinatorica (2025) with DOI 10.1007/s00493-025-00192-w.",
+      link: "https://doi.org/10.1007/s00493-025-00192-w",
       institutionLink: "#",
       supervisorLink: "https://webusers.imj-prg.fr/%7Ekarim.adiprasito/",
       fundingInfo: "Karim's ERC Consolidator grant",

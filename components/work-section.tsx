@@ -12,10 +12,9 @@ export function WorkSection() {
       company: "CloudSquid",
       location: "Berlin, Germany",
       role: "Founding Engineer",
-      period: "Apr 2024 - Present",
+      period: "Apr 2024 - May 2025",
       description:
-        "Leading engineering across CloudSquid's production AI document extraction and workflow platform. Core ownership includes Go REST APIs, Temporal worker orchestration, MCP server integration, and a Next.js frontend, plus a multi-provider LLM runtime (Gemini, Claude, OpenAI) with structured outputs, retries, and fallback behavior. I also work on multi-tenant data architecture, privacy features like zero-retention mode, and observability/event logging for reliable operations.",
-      skills: ["Go", "Temporal", "Next.js", "PostgreSQL", "MCP", "Gemini/Claude/OpenAI"],
+        "Lead engineering across CloudSquid's production AI document extraction and workflow platform.
       icon: <Cloud className="h-8 w-8 text-amber-700 dark:text-amber-500" />,
     },
     {

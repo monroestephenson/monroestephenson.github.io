@@ -36,6 +36,7 @@ export function IntroSection() {
           <div className="space-y-6">
             <p className="text-lg">
               Hello, I'm Monroe Stephenson. I'm a Software Engineer at Superchat!
+            </p>
 
             <p className="text-lg">
               I combine software engineering with machine learning research. I'm currently pursuing an M.S. in Computer Science at Georgia Tech, and previously worked on ML interpretability as a Fulbright Scholar at the Max Planck Institute.

@@ -14,7 +14,8 @@ export function WorkSection() {
       role: "Founding Engineer",
       period: "Apr 2024 - May 2025",
       description:
-        "Lead engineering across CloudSquid's production AI document extraction and workflow platform.
+        "Lead engineering across CloudSquid's production AI document extraction and workflow platform.",
+      skills: ["AI", "Document Extraction", "Platform Engineering"],
       icon: <Cloud className="h-8 w-8 text-amber-700 dark:text-amber-500" />,
     },
     {

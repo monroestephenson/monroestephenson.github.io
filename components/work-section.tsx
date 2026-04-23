@@ -4,15 +4,25 @@ import { motion } from "framer-motion"
 import { SectionHeader } from "@/components/section-header"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Cloud, Database, Code, Cpu } from "lucide-react"
+import { Cloud, Database, Code, Cpu, MessageSquare } from "lucide-react"
 
 export function WorkSection() {
   const workExperience = [
     {
+      company: "Superchat",
+      location: "Berlin, Germany",
+      role: "Software Engineer",
+      period: "May 2026 - Present",
+      description:
+        "Build features across Superchat's AI-powered customer messaging platform, which unifies WhatsApp, social, and other channels into a single inbox with chatbot and AI agent automation for 9,000+ businesses on GDPR-compliant German infrastructure.",
+      skills: ["AI Agents", "Messaging Platforms", "Full-Stack", "GDPR"],
+      icon: <MessageSquare className="h-8 w-8 text-amber-700 dark:text-amber-500" />,
+    },
+    {
       company: "CloudSquid",
       location: "Berlin, Germany",
       role: "Founding Engineer",
-      period: "Apr 2024 - May 2025",
+      period: "Apr 2025 - May 2026",
       description:
         "Lead engineering across CloudSquid's production AI document extraction and workflow platform.",
       skills: ["AI", "Document Extraction", "Platform Engineering"],

@@ -1,103 +1,118 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
-import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { motion, AnimatePresence } from "framer-motion"
+import { cn } from "@/lib/utils"
+
+const sections = [
+  { name: "Work", href: "#work", id: "work" },
+  { name: "Research", href: "#research", id: "research" },
+  { name: "Projects", href: "#projects", id: "projects" },
+  { name: "Plates", href: "#plates", id: "plates" },
+  { name: "Contact", href: "#contact", id: "contact" },
+]
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState<string | null>(null)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  const navLinks = [
-    { name: "Intro", href: "#intro" },
-    { name: "Work", href: "#work" },
-    { name: "Projects", href: "#projects" },
-    { name: "Research", href: "#research" },
-    { name: "Personal", href: "#personal" },
-    { name: "Contact", href: "#contact" },
-  ]
+  /* Mark where you are. `critical` means current, here as everywhere else. */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+        if (visible.length > 0) setActive(visible[0].target.id)
+      },
+      { rootMargin: "-20% 0px -70% 0px" },
+    )
+
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-stone-50/90 dark:bg-zinc-900/90 backdrop-blur-md border-b border-stone-200 dark:border-zinc-800"
-          : "bg-transparent",
+        "fixed inset-x-0 top-0 z-50 transition-colors duration-200",
+        scrolled ? "border-b border-rule bg-paper/95 backdrop-blur-sm" : "bg-transparent",
       )}
     >
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <div className="flex-shrink-0">
-            <Link
-              href="/"
-              className="text-xl font-playfair font-medium bg-clip-text text-transparent bg-gradient-to-r from-amber-700 to-amber-900 dark:from-amber-500 dark:to-amber-700"
-            >
-              gramscian
-            </Link>
-          </div>
+      <nav className="mx-auto max-w-page px-5 sm:px-8">
+        <div className="flex h-16 items-center justify-between gap-6">
+          <Link href="/" className="micro text-ink transition-colors hover:text-critical">
+            gramscian
+          </Link>
 
-          <div className="hidden md:flex md:items-center md:space-x-8">
-            {navLinks.map((link) => (
+          <div className="hidden items-center gap-7 md:flex">
+            {sections.map((section) => (
               <Link
-                key={link.name}
-                href={link.href}
-                className="text-zinc-700 dark:text-zinc-300 hover:text-amber-800 dark:hover:text-amber-500 transition-colors"
+                key={section.id}
+                href={section.href}
+                aria-current={active === section.id ? "true" : undefined}
+                className={cn(
+                  "micro transition-colors hover:text-ink",
+                  active === section.id ? "text-critical" : "text-ink-muted",
+                )}
               >
-                {link.name}
+                {section.name}
               </Link>
             ))}
+            <span className="h-3 w-px bg-rule" aria-hidden="true" />
             <ThemeToggle />
           </div>
 
-          <div className="md:hidden flex items-center">
+          <div className="flex items-center gap-5 md:hidden">
             <ThemeToggle />
-            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="ml-2">
-              {mobileMenuOpen ? <X /> : <Menu />}
-            </Button>
+            <button
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
+              className="micro text-ink-muted transition-colors hover:text-ink"
+            >
+              {menuOpen ? "Close" : "Menu"}
+            </button>
           </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            className="md:hidden bg-stone-50/95 dark:bg-zinc-900/95 backdrop-blur-lg"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="container mx-auto px-4 py-4 space-y-2">
-              {navLinks.map((link) => (
+      {menuOpen && (
+        <div
+          id="mobile-nav"
+          className="border-t border-rule bg-paper px-5 py-5 md:hidden"
+        >
+          <ul className="space-y-4">
+            {sections.map((section) => (
+              <li key={section.id}>
                 <Link
-                  key={link.name}
-                  href={link.href}
-                  className="block py-2 text-zinc-700 dark:text-zinc-300 hover:text-amber-800 dark:hover:text-amber-500 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
+                  href={section.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={cn(
+                    "micro",
+                    active === section.id ? "text-critical" : "text-ink-muted",
+                  )}
                 >
-                  {link.name}
+                  {section.name}
                 </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </header>
   )
 }
-

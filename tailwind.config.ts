@@ -1,5 +1,10 @@
 import type { Config } from "tailwindcss"
 
+/**
+ * Colors resolve through CSS custom properties so `.dark` flips the whole
+ * system at the token level. That keeps `dark:` prefixes out of the components
+ * almost entirely — the negative is defined once, in globals.css.
+ */
 const config = {
   darkMode: ["class"],
   content: [
@@ -7,19 +12,24 @@ const config = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "*.{js,ts,jsx,tsx,mdx}",
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       colors: {
+        paper: "rgb(var(--paper) / <alpha-value>)",
+        ink: "rgb(var(--ink) / <alpha-value>)",
+        "ink-muted": "rgb(var(--ink-muted) / <alpha-value>)",
+        rule: "rgb(var(--rule) / <alpha-value>)",
+        critical: "rgb(var(--critical) / <alpha-value>)",
+
+        // sandpile grain states, 0–3
+        s0: "rgb(var(--s0) / <alpha-value>)",
+        s1: "rgb(var(--s1) / <alpha-value>)",
+        s2: "rgb(var(--s2) / <alpha-value>)",
+        s3: "rgb(var(--s3) / <alpha-value>)",
+
+        // shadcn compatibility
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -55,13 +65,26 @@ const config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)"],
-        playfair: ["var(--font-playfair)"],
+        display: ["var(--font-newsreader)", "ui-serif", "Georgia", "serif"],
+        sans: ["var(--font-plex-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["var(--font-plex-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+      },
+      fontSize: {
+        hero: ["var(--t-hero)", { lineHeight: "0.94", letterSpacing: "-0.03em" }],
+        h2: ["var(--t-h2)", { lineHeight: "1.04", letterSpacing: "-0.022em" }],
+        h3: ["var(--t-h3)", { lineHeight: "1.2", letterSpacing: "-0.012em" }],
+        body: ["var(--t-body)", { lineHeight: "1.65" }],
+        meta: ["var(--t-meta)", { lineHeight: "1.5" }],
+        micro: ["var(--t-micro)", { lineHeight: "1.4", letterSpacing: "0.14em" }],
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "var(--radius)",
+        sm: "var(--radius)",
+      },
+      maxWidth: {
+        measure: "62ch",
+        page: "78rem",
       },
       keyframes: {
         "accordion-down": {
@@ -83,4 +106,3 @@ const config = {
 } satisfies Config
 
 export default config
-

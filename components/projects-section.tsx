@@ -1,175 +1,162 @@
-"use client"
-
-import { motion } from "framer-motion"
-import { SectionHeader } from "@/components/section-header"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Github, ExternalLink, MessageSquare, Database, Cpu, BookOpen } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
+import { SectionHeader } from "@/components/section-header"
+
+interface Project {
+  name: string
+  tagline: string
+  description: string
+  spec: { term: string; detail: string }[]
+  notes: string[]
+  links: { label: string; href: string }[]
+  lead?: boolean
+}
+
+const projects: Project[] = [
+  {
+    name: "FlowSketch",
+    tagline: "Bounded-memory network telemetry",
+    description:
+      "You ask a declarative question (who are the top talkers, which hosts are scanning the most destinations) and it compiles to streaming sketches with explicit error and memory contracts. You know what an answer will cost before you run it, and the engine refuses plans it cannot afford. Packet payloads are never part of the event model.",
+    spec: [
+      { term: "Language", detail: "Rust 1.85+" },
+      { term: "Licence", detail: "Apache-2.0" },
+      { term: "Status", detail: "Pre-1.0, controlled beta" },
+    ],
+    notes: [
+      "Count-Min, CountSketch, HyperLogLog, SpaceSaving, Misra-Gries and KLL",
+      "Sliding event-time windows with merge-correct parallel execution",
+      "Linux TPACKET_V3, AF_PACKET fan-out and tc eBPF capture",
+      "Prometheus and OTLP export; compatible sketch state merges across nodes",
+    ],
+    links: [{ label: "Source", href: "https://github.com/monroestephenson/flowsketch" }],
+    lead: true,
+  },
+  {
+    name: "opn",
+    tagline: "A local network detective",
+    description:
+      "It covers the usual lsof workflows and then keeps going: what is this machine doing on the network right now, what changed, and what to do about it. Reads process, socket, interface and packet state straight from OS APIs, and answers in prose for people or structured output for agents.",
+    spec: [
+      { term: "Language", detail: "Rust" },
+      { term: "Install", detail: "brew, or cargo install" },
+    ],
+    notes: [
+      "diagnose, watch and history as one investigation loop",
+      "--llm hands identical machine state to an agent",
+      "Fuzzed /proc/net parser; privileged firewall tests in CI",
+    ],
+    links: [
+      { label: "Source", href: "https://github.com/monroestephenson/opn" },
+      { label: "Homebrew tap", href: "https://github.com/monroestephenson/homebrew-tap" },
+    ],
+  },
+  {
+    name: "The Long Inheritance",
+    tagline: "A map of literary descent",
+    description:
+      "Four thousand years of books borrowing from each other, drawn as a graph you can walk. Gilgamesh is in there, and so is last decade's fiction, and the edges are editorial judgements rather than citations, which is the interesting and arguable part.",
+    spec: [
+      { term: "Works", detail: "302" },
+      { term: "Edges", detail: "565" },
+      { term: "Built with", detail: "TypeScript, Vite" },
+    ],
+    notes: [
+      "Search, filter and trace a single lineage back to its root",
+      "Every influence edge is asserted by hand, not inferred",
+    ],
+    links: [
+      { label: "Open the map", href: "/literature/" },
+      { label: "Source", href: "https://github.com/monroestephenson/monroestephenson.github.io" },
+    ],
+  },
+]
+
+function ProjectPanel({ project }: { project: Project }) {
+  return (
+    <article className="flex h-full flex-col border border-rule p-6 md:p-8">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <h3 className="text-h3">{project.name}</h3>
+        <p className="micro text-ink-muted">{project.tagline}</p>
+      </div>
+
+      {/* The lead panel is full width, so its prose and its notes sit side by
+          side rather than leaving half the panel empty. */}
+      <div
+        className={
+          project.lead ? "mt-5 grid gap-x-12 gap-y-6 lg:grid-cols-2" : "mt-5"
+        }
+      >
+        <p className="max-w-measure text-ink-muted">{project.description}</p>
+
+        <ul className={project.lead ? "space-y-2" : "mt-6 space-y-2"}>
+          {project.notes.map((note) => (
+            <li key={note} className="meta flex gap-3 text-ink-muted">
+              <span aria-hidden="true" className="mt-[0.55em] h-px w-3 shrink-0 bg-s2" />
+              <span>{note}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <dl className="mt-auto flex flex-wrap gap-x-8 gap-y-2 pt-8">
+        {project.spec.map((item) => (
+          <div key={item.term}>
+            <dt className="micro text-ink-muted">{item.term}</dt>
+            <dd className="meta text-ink">{item.detail}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="mt-6 flex flex-wrap gap-x-7 gap-y-2 border-t border-rule pt-5 meta">
+        {project.links.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            target={link.href.startsWith("http") ? "_blank" : undefined}
+            rel="noopener noreferrer"
+            className="link text-ink-muted"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
+    </article>
+  )
+}
 
 export function ProjectsSection() {
-  const projects = [
-    {
-      title: "Sprawl",
-      description:
-        "A distributed, scalable pub/sub messaging system with intelligent routing and DHT-based topic distribution.",
-      image: "/sprawl_logo.png",
-      tags: ["Go", "Distributed Systems", "Pub/Sub", "DHT"],
-      githubUrl: "https://github.com/monroestephenson/sprawl",
-      liveUrl: "",
-      icon: <MessageSquare className="h-10 w-10 text-amber-700 dark:text-amber-500" />,
-      features: [
-        "Distributed Hash Table (DHT) for topic management",
-        "Gossip protocol for node discovery",
-        "Tiered storage (Memory, RocksDB, MinIO/S3)",
-        "AI-powered traffic analysis and load prediction",
-      ],
-      bgColor: "bg-gradient-to-br from-amber-50 to-stone-200 dark:from-amber-950/30 dark:to-zinc-900",
-    },
-    {
-      title: "Hegemon",
-      description: "A powerful and secure command-line tool for managing database backups, written in modern C++.",
-      image: "/hegemon.png",
-      tags: ["C++", "CLI", "Database", "Backup"],
-      githubUrl: "https://github.com/monroestephenson/hegemon",
-      liveUrl: "",
-      icon: <Database className="h-10 w-10 text-amber-700 dark:text-amber-500" />,
-      features: [
-        "Support for MySQL, PostgreSQL, and SQLite",
-        "Compression and encryption options",
-        "Local and cloud storage integration",
-        "Retention policy management",
-      ],
-      bgColor: "bg-gradient-to-br from-gray-100 to-gray-300 dark:from-zinc-800 dark:to-zinc-900",
-    },
-    {
-      title: "Simulife",
-      description:
-        "An existential clicker browser game that evolves from a standard incremental clicker into an existential experience.",
-      image: "/placeholder.svg",
-      tags: ["React", "TypeScript", "Game", "Philosophy"],
-      githubUrl: "https://github.com/monroestephenson/simulife",
-      liveUrl: "https://simulife-demo.vercel.app",
-      icon: <Cpu className="h-10 w-10 text-amber-700 dark:text-amber-500" />,
-      features: [
-        "Evolving gameplay mechanics",
-        "Existential themes and humor",
-        "UI decay that mirrors player progression",
-        "LLM integration for dynamic content",
-      ],
-      bgColor: "bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-950/30 dark:to-indigo-950/30",
-    },
-    {
-      title: "The Long Inheritance",
-      description:
-        "An interactive map of literary descent, tracing 4,000 years of influence from the Epic of Gilgamesh to contemporary fiction.",
-      image: "/placeholder.svg",
-      tags: ["TypeScript", "Vite", "Literary Graph"],
-      githubUrl: "https://github.com/monroestephenson/monroestephenson.github.io",
-      liveUrl: "/literature/",
-      icon: <BookOpen className="h-10 w-10 text-amber-700 dark:text-amber-500" />,
-      features: [
-        "302 works across four thousand years",
-        "565 editorial influence connections",
-        "Interactive search, filtering, and lineage views",
-      ],
-      bgColor: "bg-gradient-to-br from-amber-50 to-orange-100 dark:from-amber-950/30 dark:to-orange-950/30",
-    },
-  ]
+  const [lead, ...rest] = projects
 
   return (
     <div>
-      <SectionHeader title="Projects" subtitle="Open-source projects I've created and contributed to." />
+      <SectionHeader label="Projects" count={`${projects.length} repositories`} title="Things I build when nobody asked.">
+        <p>
+          Two of these watch a network honestly under load, the problem the
+          sandpile above was built for, and both work by declaring their
+          budget first and living inside it. The third points the same instinct at
+          novels.
+        </p>
+      </SectionHeader>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-          >
-            <Card className="h-full flex flex-col overflow-hidden border-stone-200 dark:border-zinc-800 shadow-md hover:shadow-lg transition-shadow duration-300">
-              <div className={`relative h-48 w-full overflow-hidden ${project.bgColor}`}>
-                <div className="absolute inset-0 flex items-center justify-center p-6">
-                  {project.title === "Sprawl" || project.title === "Hegemon" ? (
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      width={300}
-                      height={150}
-                      className="object-contain max-h-40"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center text-center">
-                      {project.icon}
-                      <h3 className="text-xl font-semibold mt-2 text-zinc-800 dark:text-zinc-200">{project.title}</h3>
-                    </div>
-                  )}
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                </div>
-              </div>
-
-              <CardContent className="flex-grow pt-6 space-y-4">
-                <p>{project.description}</p>
-
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {project.tags.map((tag, tagIndex) => (
-                    <Badge
-                      key={tagIndex}
-                      variant="secondary"
-                      className="bg-amber-100 text-amber-800 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:hover:bg-amber-900/50"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-
-              <CardFooter className="border-t border-stone-200 dark:border-zinc-800 pt-4 flex gap-4">
-                <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full border-amber-700 text-amber-700 hover:bg-amber-50 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-zinc-800"
-                  >
-                    <Github className="mr-2 h-4 w-4" />
-                    GitHub
-                  </Button>
-                </Link>
-
-                {project.liveUrl && (
-                  <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full border-amber-700 text-amber-700 hover:bg-amber-50 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-zinc-800"
-                    >
-                      <ExternalLink className="mr-2 h-4 w-4" />
-                      Demo
-                    </Button>
-                  </Link>
-                )}
-              </CardFooter>
-            </Card>
-          </motion.div>
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="lg:col-span-2">
+          <ProjectPanel project={lead} />
+        </div>
+        {rest.map((project) => (
+          <ProjectPanel key={project.name} project={project} />
         ))}
       </div>
 
-      <div className="mt-12 text-center">
-        <Link href="https://github.com/monroestephenson" target="_blank" rel="noopener noreferrer">
-          <Button className="bg-amber-700 hover:bg-amber-800 text-white">
-            <Github className="mr-2 h-4 w-4" />
-            View More on GitHub
-          </Button>
+      <p className="mt-8 meta">
+        <Link
+          href="https://github.com/monroestephenson"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link text-ink-muted"
+        >
+          The rest is on GitHub
         </Link>
-      </div>
+      </p>
     </div>
   )
 }

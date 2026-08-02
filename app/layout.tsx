@@ -1,23 +1,43 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Playfair_Display } from "next/font/google"
+import { Newsreader, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
-const inter = Inter({
+const newsreader = Newsreader({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-newsreader",
+  display: "swap",
+  axes: ["opsz"],
 })
 
-const playfair = Playfair_Display({
+const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  weight: ["400", "500", "600"],
+  variable: "--font-plex-sans",
+  display: "swap",
+})
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
-  title: "Monroe Stephenson | Software Engineer & Creator",
-  description: "Personal website of Monroe Stephenson - Software Engineer, Creator, and Open Source Contributor",
-    generator: 'v0.dev'
+  metadataBase: new URL("https://gramscian.com"),
+  title: "Monroe Stephenson",
+  description:
+    "Backend engineer in Berlin, on Superchat's AI team. Algebraic statistics, network telemetry, and what capability survives under a hard constraint.",
+  openGraph: {
+    title: "Monroe Stephenson",
+    description:
+      "Backend engineer in Berlin, on Superchat's AI team. Algebraic statistics, network telemetry, and what capability survives under a hard constraint.",
+    url: "https://gramscian.com",
+    siteName: "Monroe Stephenson",
+    type: "website",
+  },
 }
 
 export default function RootLayout({
@@ -26,8 +46,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${newsreader.variable} ${plexSans.variable} ${plexMono.variable} font-sans`}
+      >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
@@ -35,7 +57,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-
-
-import './globals.css'

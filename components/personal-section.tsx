@@ -1,385 +1,200 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { SectionHeader } from "@/components/section-header"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Upload, X, ChevronLeft, ChevronRight, Camera } from "lucide-react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { SectionHeader } from "@/components/section-header"
+
+/*
+  Numbered as plates, in the sense a monograph means it: an image you can cite
+  by number. That is the one place on this site where a sequence is real.
+*/
+const plates = [
+  { src: "/mount_hood.jpg", title: "Mount Hood", place: "Oregon" },
+  { src: "/mount_hood_snow.jpg", title: "Mount Hood, winter", place: "Oregon" },
+  { src: "/reed_canyon.jpg", title: "Reed Canyon", place: "Portland, Oregon" },
+  { src: "/reed_cherry_blossums.jpg", title: "Cherry blossom, Reed", place: "Portland, Oregon" },
+  { src: "/reed_snowy.jpeg", title: "Snow on campus", place: "Portland, Oregon" },
+  { src: "/portland_overview.jpg", title: "Portland", place: "Oregon" },
+  { src: "/ship_wreck_oregon.jpg", title: "Peter Iredale", place: "Oregon coast" },
+  { src: "/oregon_cost_eagle_point.jpg", title: "Eagle Point", place: "Oregon coast" },
+  { src: "/oregon_coast_2.jpeg", title: "Coast", place: "Oregon" },
+  { src: "/olympic_national_waterfall.jpg", title: "Falls, Olympic", place: "Washington" },
+  { src: "/trout_lake.jpg", title: "Trout Lake", place: "Washington" },
+  { src: "/red_wood.jpg", title: "Redwoods", place: "California" },
+  { src: "/malibu.jpg", title: "Malibu", place: "California" },
+  { src: "/arizona.jpg", title: "Desert", place: "Arizona" },
+  { src: "/chicago.jpg", title: "Chicago", place: "Illinois" },
+  { src: "/vancouver_island_river.jpg", title: "River, Vancouver Island", place: "British Columbia" },
+  { src: "/budapest.jpg", title: "Budapest", place: "Hungary" },
+  { src: "/rostock.jpg", title: "Rostock", place: "Germany" },
+  { src: "/schwarzwald.jpeg", title: "Schwarzwald", place: "Germany" },
+  { src: "/stein_am_rhein.JPG", title: "Stein am Rhein", place: "Switzerland" },
+  { src: "/rome_overview.jpg", title: "Rome", place: "Italy" },
+  { src: "/rome_overview2.jpg", title: "Rome, again", place: "Italy" },
+  { src: "/venice_canel.jpg", title: "Canal", place: "Venice" },
+  { src: "/jerusalem_north.jpg", title: "Jerusalem, north", place: "Israel" },
+  { src: "/jerusalem_south.jpg", title: "Jerusalem, south", place: "Israel" },
+  { src: "/jerusalem_hostel.jpg", title: "Hostel", place: "Jerusalem" },
+  { src: "/wailing_wall.jpg", title: "Western Wall", place: "Jerusalem" },
+  { src: "/tel_aviv.jpg", title: "Tel Aviv", place: "Israel" },
+]
+
+function plateNumber(index: number) {
+  return String(index + 1).padStart(2, "0")
+}
 
 export function PersonalSection() {
-  const [photos, setPhotos] = useState([
-    {
-      id: 1,
-      src: "/mount_hood.jpg",
-      alt: "Mount Hood",
-      title: "Mount Hood",
-      location: "Oregon, USA",
-    },
-    {
-      id: 2,
-      src: "/mount_hood_snow.jpg",
-      alt: "Mount Hood in winter",
-      title: "Snowy Mount Hood",
-      location: "Oregon, USA",
-    },
-    {
-      id: 3,
-      src: "/reed_canyon.jpg",
-      alt: "Reed College Canyon",
-      title: "Reed College Canyon",
-      location: "Portland, Oregon",
-    },
-    {
-      id: 4,
-      src: "/reed_cherry_blossums.jpg",
-      alt: "Cherry blossoms at Reed College",
-      title: "Reed Cherry Blossoms",
-      location: "Portland, Oregon",
-    },
-    {
-      id: 5,
-      src: "/reed_snowy.jpeg",
-      alt: "Reed College in winter",
-      title: "Winter at Reed",
-      location: "Portland, Oregon",
-    },
-    {
-      id: 6,
-      src: "/budapest.jpg",
-      alt: "Budapest cityscape",
-      title: "Budapest",
-      location: "Hungary",
-    },
-    {
-      id: 7,
-      src: "/ship_wreck_oregon.jpg",
-      alt: "Shipwreck on Oregon coast",
-      title: "Oregon Shipwreck",
-      location: "Oregon Coast, USA",
-    },
-    {
-      id: 8,
-      src: "/arizona.jpg",
-      alt: "Arizona landscape",
-      title: "Arizona",
-      location: "USA",
-    },
-    {
-      id: 9,
-      src: "/jerusalem_north.jpg",
-      alt: "Northern Jerusalem",
-      title: "Jerusalem North",
-      location: "Israel",
-    },
-    {
-      id: 10,
-      src: "/wailing_wall.jpg",
-      alt: "Wailing Wall in Jerusalem",
-      title: "Western Wall",
-      location: "Jerusalem, Israel",
-    },
-    {
-      id: 11,
-      src: "/rome_overview.jpg",
-      alt: "Overview of Rome",
-      title: "Rome",
-      location: "Italy",
-    },
-    {
-      id: 12,
-      src: "/venice_canel.jpg",
-      alt: "Venice Canal",
-      title: "Venice Canal",
-      location: "Italy",
-    },
-    {
-      id: 13,
-      src: "/chicago.jpg",
-      alt: "Chicago cityscape",
-      title: "Chicago",
-      location: "Illinois, USA",
-    },
-    {
-      id: 14,
-      src: "/jerusalem_hostel.jpg",
-      alt: "Hostel in Jerusalem",
-      title: "Jerusalem Hostel",
-      location: "Jerusalem, Israel",
-    },
-    {
-      id: 15,
-      src: "/jerusalem_south.jpg",
-      alt: "Southern Jerusalem",
-      title: "Jerusalem South",
-      location: "Israel",
-    },
-    {
-      id: 16,
-      src: "/malibu.jpg",
-      alt: "Malibu coastline",
-      title: "Malibu",
-      location: "California, USA",
-    },
-    {
-      id: 17,
-      src: "/olympic_national_waterfall.jpg",
-      alt: "Waterfall in Olympic National Park",
-      title: "Olympic National Waterfall",
-      location: "Washington, USA",
-    },
-    {
-      id: 18,
-      src: "/oregon_cost_eagle_point.jpg",
-      alt: "Eagle Point on Oregon Coast",
-      title: "Oregon Coast Eagle Point",
-      location: "Oregon, USA",
-    },
-    {
-      id: 19,
-      src: "/oregon_coast_2.jpeg",
-      alt: "Oregon coastline",
-      title: "Oregon Coast",
-      location: "Oregon, USA",
-    },
-    {
-      id: 20,
-      src: "/portland_overview.jpg",
-      alt: "Overview of Portland",
-      title: "Portland Overview",
-      location: "Oregon, USA",
-    },
-    {
-      id: 21,
-      src: "/red_wood.jpg",
-      alt: "Redwood forest",
-      title: "Redwood Forest",
-      location: "California, USA",
-    },
-    {
-      id: 22,
-      src: "/rome_overview2.jpg",
-      alt: "Another view of Rome",
-      title: "Rome Vista",
-      location: "Italy",
-    },
-    {
-      id: 23,
-      src: "/rostock.jpg",
-      alt: "City of Rostock",
-      title: "Rostock",
-      location: "Germany",
-    },
-    {
-      id: 24,
-      src: "/schwarzwald.jpeg",
-      alt: "Black Forest",
-      title: "Schwarzwald (Black Forest)",
-      location: "Germany",
-    },
-    {
-      id: 25,
-      src: "/stein_am_rhein.JPG",
-      alt: "Stein am Rhein",
-      title: "Stein am Rhein",
-      location: "Switzerland",
-    },
-    {
-      id: 26,
-      src: "/tel_aviv.jpg",
-      alt: "Tel Aviv cityscape",
-      title: "Tel Aviv",
-      location: "Israel",
-    },
-    {
-      id: 27,
-      src: "/trout_lake.jpg",
-      alt: "Trout Lake",
-      title: "Trout Lake",
-      location: "Washington, USA",
-    },
-    {
-      id: 28,
-      src: "/vancouver_island_river.jpg",
-      alt: "River on Vancouver Island",
-      title: "Vancouver Island River",
-      location: "British Columbia, Canada",
-    },
-  ])
+  const [open, setOpen] = useState<number | null>(null)
+  const triggersRef = useRef<(HTMLButtonElement | null)[]>([])
+  const returnFocusRef = useRef<number | null>(null)
+  const closeRef = useRef<HTMLButtonElement | null>(null)
 
-  const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null)
-  const [isUploading, setIsUploading] = useState(false)
+  const close = useCallback(() => {
+    setOpen(null)
+  }, [])
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setIsUploading(true)
+  const move = useCallback((delta: number) => {
+    setOpen((current) => {
+      if (current === null) return current
+      return (current + delta + plates.length) % plates.length
+    })
+  }, [])
 
-      // Simulate upload delay
-      setTimeout(() => {
-        const newPhotos = Array.from(e.target.files!).map((file, index) => ({
-          id: photos.length + index + 1,
-          src: URL.createObjectURL(file),
-          alt: file.name,
-          title: file.name.split(".")[0].replace(/_/g, " "),
-          location: "Custom Upload",
-        }))
+  useEffect(() => {
+    if (open === null) return
 
-        setPhotos([...photos, ...newPhotos])
-        setIsUploading(false)
-      }, 1500)
-    }
-  }
-
-  const openLightbox = (id: number) => {
-    setSelectedPhoto(id)
-  }
-
-  const closeLightbox = () => {
-    setSelectedPhoto(null)
-  }
-
-  const navigatePhoto = (direction: "prev" | "next") => {
-    if (selectedPhoto === null) return
-
-    const currentIndex = photos.findIndex((photo) => photo.id === selectedPhoto)
-    let newIndex
-
-    if (direction === "prev") {
-      newIndex = currentIndex > 0 ? currentIndex - 1 : photos.length - 1
-    } else {
-      newIndex = currentIndex < photos.length - 1 ? currentIndex + 1 : 0
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault()
+        close()
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault()
+        move(1)
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault()
+        move(-1)
+      }
     }
 
-    setSelectedPhoto(photos[newIndex].id)
-  }
+    document.addEventListener("keydown", onKey)
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    closeRef.current?.focus()
+
+    return () => {
+      document.removeEventListener("keydown", onKey)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [open, close, move])
+
+  /* Send focus back to the thumbnail the viewer came from. */
+  useEffect(() => {
+    if (open === null && returnFocusRef.current !== null) {
+      triggersRef.current[returnFocusRef.current]?.focus()
+      returnFocusRef.current = null
+    }
+  }, [open])
+
+  const current = open === null ? null : plates[open]
 
   return (
     <div>
-      <SectionHeader
-        title="Travel Photography"
-        subtitle="A collection of nature photographs I've taken during my travels."
-      />
-
-      <div className="mb-8 flex justify-between items-center">
-        <p className="text-zinc-600 dark:text-zinc-400 italic">
-          "Study nature, love nature, stay close to nature. It will never fail you." — Frank Lloyd Wright
+      <SectionHeader label="Plates" count={`${plates.length} photographs`} title="Places I have stood.">
+        <p>
+          Taken between Oregon and Jerusalem, mostly on the way to or from
+          somebody&rsquo;s mathematics department. I am generally after the same
+          thing in all of them: dense forest, weather, and the feeling of being a
+          long way from a city.
         </p>
+      </SectionHeader>
 
-        <div className="relative">
-          <input
-            type="file"
-            id="photo-upload"
-            multiple
-            accept="image/*"
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-            onChange={handlePhotoUpload}
-          />
-          <Button
-            variant="outline"
-            className="relative border-amber-700 text-amber-700 hover:bg-amber-50 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-zinc-800"
-          >
-            {isUploading ? "Uploading..." : "Upload Photos"}
-            <Upload className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-
-      {/* Masonry-style gallery */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {photos.map((photo, index) => (
-          <motion.div
-            key={photo.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className={`cursor-pointer ${index % 3 === 0 ? "sm:col-span-2 lg:col-span-1" : ""}`}
-            onClick={() => openLightbox(photo.id)}
-          >
-            <Card className="overflow-hidden border-stone-200 dark:border-zinc-800 shadow-md hover:shadow-lg transition-shadow duration-300">
-              <CardContent className="p-0">
-                <div className="relative h-64 w-full overflow-hidden">
-                  <Image
-                    src={photo.src || "/placeholder.svg"}
-                    alt={photo.alt}
-                    fill
-                    className="object-cover transition-transform duration-300 hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-4 w-full">
-                      <h3 className="text-lg font-medium text-white">{photo.title}</h3>
-                      <p className="text-sm text-stone-200">{photo.location}</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+      <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
+        {plates.map((plate, index) => (
+          <li key={plate.src}>
+            <button
+              type="button"
+              ref={(node) => {
+                triggersRef.current[index] = node
+              }}
+              onClick={() => {
+                returnFocusRef.current = index
+                setOpen(index)
+              }}
+              className="group block w-full text-left"
+            >
+              <span className="relative block aspect-[4/3] w-full overflow-hidden border border-rule">
+                <Image
+                  src={plate.src}
+                  alt={`${plate.title}, ${plate.place}`}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover transition-opacity duration-200 group-hover:opacity-85"
+                />
+              </span>
+              <span className="mt-2 flex items-baseline gap-3">
+                <span className="micro text-ink-muted">{plateNumber(index)}</span>
+                <span className="meta text-ink">{plate.title}</span>
+              </span>
+              <span className="micro mt-1 block text-ink-muted">{plate.place}</span>
+            </button>
+          </li>
         ))}
-      </div>
+      </ul>
 
-      {/* Empty state */}
-      {photos.length === 0 && (
-        <div className="text-center py-20 border-2 border-dashed border-stone-300 dark:border-zinc-700 rounded-lg">
-          <Camera className="h-12 w-12 mx-auto text-stone-400 dark:text-zinc-600 mb-4" />
-          <h3 className="text-xl font-medium mb-2">No photos yet</h3>
-          <p className="text-zinc-600 dark:text-zinc-400 mb-6">Upload your nature photography to display here</p>
-          <Button
-            variant="outline"
-            className="relative border-amber-700 text-amber-700 hover:bg-amber-50 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-zinc-800"
-          >
-            Upload Photos
-            <Upload className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
-      )}
-
-      {/* Lightbox */}
-      {selectedPhoto !== null && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
-          <button
-            className="absolute top-4 right-4 text-white p-2 rounded-full bg-black/50 hover:bg-black/70"
-            onClick={closeLightbox}
-          >
-            <X className="h-6 w-6" />
-          </button>
-
-          <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white p-2 rounded-full bg-black/50 hover:bg-black/70"
-            onClick={() => navigatePhoto("prev")}
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-
-          <div className="relative max-w-4xl max-h-[80vh]">
-            {photos.find((photo) => photo.id === selectedPhoto) && (
-              <Image
-                src={photos.find((photo) => photo.id === selectedPhoto)!.src || "/placeholder.svg"}
-                alt={photos.find((photo) => photo.id === selectedPhoto)!.alt}
-                width={1200}
-                height={800}
-                className="max-h-[80vh] w-auto object-contain"
-              />
-            )}
+      {current !== null && open !== null && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Plate ${plateNumber(open)}, ${current.title}`}
+          className="fixed inset-0 z-[60] flex flex-col bg-paper"
+        >
+          <div className="flex items-center justify-between gap-6 border-b border-rule px-5 py-4 sm:px-8">
+            <p className="meta text-ink">
+              <span className="micro mr-3 text-ink-muted">Plate {plateNumber(open)}</span>
+              {current.title}
+              <span className="text-ink-muted">, {current.place}</span>
+            </p>
+            <button
+              type="button"
+              ref={closeRef}
+              onClick={close}
+              className="micro text-ink-muted transition-colors hover:text-critical"
+            >
+              Close
+            </button>
           </div>
 
-          <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white p-2 rounded-full bg-black/50 hover:bg-black/70"
-            onClick={() => navigatePhoto("next")}
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
+          <div className="relative min-h-0 flex-1">
+            <Image
+              src={current.src}
+              alt={`${current.title}, ${current.place}`}
+              fill
+              sizes="100vw"
+              className="object-contain p-4 sm:p-8"
+            />
+          </div>
 
-          <div className="absolute bottom-4 left-0 right-0 text-center text-white">
-            <h3 className="text-xl font-medium">{photos.find((photo) => photo.id === selectedPhoto)?.title}</h3>
-            <p className="text-sm opacity-80">{photos.find((photo) => photo.id === selectedPhoto)?.location}</p>
+          <div className="flex items-center justify-between gap-6 border-t border-rule px-5 py-4 sm:px-8">
+            <button
+              type="button"
+              onClick={() => move(-1)}
+              className="micro text-ink-muted transition-colors hover:text-critical"
+            >
+              ← Previous
+            </button>
+            <p className="micro text-ink-muted">
+              {plateNumber(open)} / {plates.length}
+            </p>
+            <button
+              type="button"
+              onClick={() => move(1)}
+              className="micro text-ink-muted transition-colors hover:text-critical"
+            >
+              Next →
+            </button>
           </div>
         </div>
       )}
     </div>
   )
 }
-

@@ -2,46 +2,55 @@ import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { IntroSection } from "@/components/intro-section"
 import { WorkSection } from "@/components/work-section"
-import { ProjectsSection } from "@/components/projects-section"
 import { ResearchSection } from "@/components/research-section"
+import { ProjectsSection } from "@/components/projects-section"
 import { PersonalSection } from "@/components/personal-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-stone-50 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200">
+    <>
+      <a
+        href="#about"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:border focus:border-rule focus:bg-paper focus:px-4 focus:py-2 focus:meta"
+      >
+        Skip to content
+      </a>
+
       <Navbar />
-      <Hero />
 
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
-        <section id="intro" className="py-20 md:py-28">
-          <IntroSection />
-        </section>
+      <main>
+        <Hero />
 
-        <section id="work" className="py-20 md:py-28">
-          <WorkSection />
-        </section>
+        <div className="mx-auto max-w-page px-5 sm:px-8">
+          <section id="about" className="scroll-mt-24 py-20 md:py-28">
+            <IntroSection />
+          </section>
 
-        <section id="projects" className="py-20 md:py-28">
-          <ProjectsSection />
-        </section>
+          <section id="work" className="scroll-mt-24 border-t border-rule py-20 md:py-28">
+            <WorkSection />
+          </section>
 
-        <section id="research" className="py-20 md:py-28">
-          <ResearchSection />
-        </section>
+          <section id="research" className="scroll-mt-24 border-t border-rule py-20 md:py-28">
+            <ResearchSection />
+          </section>
 
-        <section id="personal" className="py-20 md:py-28">
-          <PersonalSection />
-        </section>
+          <section id="projects" className="scroll-mt-24 border-t border-rule py-20 md:py-28">
+            <ProjectsSection />
+          </section>
 
-        <section id="contact" className="py-20 md:py-28">
-          <ContactSection />
-        </section>
-      </div>
+          <section id="plates" className="scroll-mt-24 border-t border-rule py-20 md:py-28">
+            <PersonalSection />
+          </section>
+
+          <section id="contact" className="scroll-mt-24 border-t border-rule py-20 md:py-28">
+            <ContactSection />
+          </section>
+        </div>
+      </main>
 
       <Footer />
-    </main>
+    </>
   )
 }
-

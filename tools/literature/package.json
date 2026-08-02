@@ -1,0 +1,17 @@
+{
+  "name": "the-long-inheritance",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "An interactive timeline of literary influence, from Gilgamesh to Septology.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}

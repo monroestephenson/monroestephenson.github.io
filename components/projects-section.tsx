@@ -5,7 +5,7 @@ import { SectionHeader } from "@/components/section-header"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Github, ExternalLink, MessageSquare, Database, Cpu } from "lucide-react"
+import { Github, ExternalLink, MessageSquare, Database, Cpu, BookOpen } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -60,6 +60,22 @@ export function ProjectsSection() {
         "LLM integration for dynamic content",
       ],
       bgColor: "bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-950/30 dark:to-indigo-950/30",
+    },
+    {
+      title: "The Long Inheritance",
+      description:
+        "An interactive map of literary descent, tracing 4,000 years of influence from the Epic of Gilgamesh to contemporary fiction.",
+      image: "/placeholder.svg",
+      tags: ["TypeScript", "Vite", "Literary Graph"],
+      githubUrl: "https://github.com/monroestephenson/monroestephenson.github.io",
+      liveUrl: "/literature/",
+      icon: <BookOpen className="h-10 w-10 text-amber-700 dark:text-amber-500" />,
+      features: [
+        "302 works across four thousand years",
+        "565 editorial influence connections",
+        "Interactive search, filtering, and lineage views",
+      ],
+      bgColor: "bg-gradient-to-br from-amber-50 to-orange-100 dark:from-amber-950/30 dark:to-orange-950/30",
     },
   ]
 
@@ -157,4 +173,3 @@ export function ProjectsSection() {
     </div>
   )
 }
-

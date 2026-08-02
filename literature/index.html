@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" data-boot>
+  <head>
+    <meta charset="utf-8" />
+    <!-- Paint the paper on the very first frame, so nothing flashes white, and
+         hold the content until the stylesheet has applied. main.css releases it
+         by overriding the same selector, which means the wait is exactly as
+         long as the stylesheet takes and no longer: in production that link is
+         render-blocking, so the page is never actually hidden; in dev, where
+         Vite injects the CSS from the module graph, it covers the gap. It does
+         not wait on the bundle, on fonts, or on the map being built. -->
+    <style>
+      html { background: #e2d8c4; }
+      html[data-boot] body { visibility: hidden; }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>The Long Inheritance — a timeline of literary descent</title>
+    <meta
+      name="description"
+      content="Four thousand years of literature drawn as a single graph of influence, from the Epic of Gilgamesh to Septology."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23e2d8c4'/%3E%3Cpath d='M20 42 A30 9 0 1 1 80 42 A30 9 0 1 1 20 42 M28 60 A22 7 0 1 1 72 60 A22 7 0 1 1 28 60 M36 76 A14 5 0 1 1 64 76 A14 5 0 1 1 36 76 M20 42 L36 76 M80 42 L64 76 M46 16 A4 4 0 1 1 54 16 A4 4 0 1 1 46 16' fill='none' stroke='%232b2318' stroke-width='4'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fraunces speaks for the books and their dates; its optical-size axis
+         means the 14px map label and the 32px panel title are different
+         drawings of the face rather than one scaled. Archivo Narrow speaks for
+         the instrument — eras, keys, counts. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="./assets/index-DrM_acT2.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-l-hpmcyf.css">
+  </head>
+  <body>
+    <div id="paper" aria-hidden="true"></div>
+
+    <main id="stage">
+      <canvas id="field"></canvas>
+      <div id="nodes"></div>
+    </main>
+
+    <header id="masthead">
+      <div class="masthead-title">
+        <h1>The Long Inheritance</h1>
+        <!-- The span and the count are already on the ruler and in the footer.
+             The one thing a reader cannot work out unaided is what a line
+             means, so that is the only thing this says. -->
+        <p>Every line is one book reading another.</p>
+      </div>
+      <div class="search-wrap">
+        <label class="visually-hidden" for="search">Find a work or author</label>
+        <input
+          id="search"
+          type="search"
+          placeholder="Find a work or author…"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <ul id="results" hidden></ul>
+      </div>
+    </header>
+
+    <aside id="panel" aria-hidden="true" aria-live="polite"></aside>
+
+    <footer id="footer">
+      <nav id="legend" aria-label="Filter by form"></nav>
+      <p id="counter"></p>
+      <p id="hints">
+        <span><kbd>/</kbd> find</span>
+        <span><kbd>0</kbd> whole span</span>
+      </p>
+    </footer>
+
+    <canvas id="ruler"></canvas>
+
+  </body>
+</html>

@@ -1,26 +1,31 @@
-import { cn } from "@/lib/utils"
+import type { ReactNode } from "react"
 
 interface SectionHeaderProps {
+  /** Short name for the section, set in the metadata voice. */
+  label: string
+  /**
+   * A true count of what follows: "5 positions", "28 plates". Sections here
+   * are not a sequence, so they are not numbered; the quantity is the only
+   * ordinal fact worth putting in the margin.
+   */
+  count: string
   title: string
-  subtitle?: string
-  align?: "left" | "center" | "right"
-  className?: string
+  children?: ReactNode
 }
 
-export function SectionHeader({ title, subtitle, align = "left", className }: SectionHeaderProps) {
+export function SectionHeader({ label, count, title, children }: SectionHeaderProps) {
   return (
-    <div
-      className={cn(
-        "mb-12 md:mb-16",
-        align === "center" && "text-center",
-        align === "right" && "text-right",
-        className,
+    <header className="mb-12 md:mb-16">
+      <div className="flex items-baseline justify-between gap-6 border-b border-rule pb-3">
+        <span className="micro text-ink">{label}</span>
+        <span className="micro text-ink-muted">{count}</span>
+      </div>
+
+      <h2 className="mt-8 text-h2">{title}</h2>
+
+      {children && (
+        <div className="mt-5 max-w-measure text-ink-muted">{children}</div>
       )}
-    >
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-playfair font-bold mb-4">{title}</h2>
-      {subtitle && <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-3xl">{subtitle}</p>}
-      <div className="mt-4 h-1 w-20 bg-amber-700 dark:bg-amber-600" />
-    </div>
+    </header>
   )
 }
-

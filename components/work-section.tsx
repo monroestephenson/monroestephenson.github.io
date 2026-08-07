@@ -1,119 +1,98 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { SectionHeader } from "@/components/section-header"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Cloud, Database, Code, Cpu, MessageSquare } from "lucide-react"
+
+const positions = [
+  {
+    company: "Superchat",
+    role: "Backend engineer, AI features",
+    location: "Berlin",
+    period: "Since May 2026",
+    current: true,
+    description:
+      "On the AI team, in Kotlin and Quarkus: voice agents, chatbots and automation over an inbox that folds WhatsApp, social and email into a single thread. More than 10,000 businesses run their customer conversations on it, on German infrastructure, under GDPR. It is the best room I have worked in.",
+    stack: "Kotlin · Quarkus · Voice agents · GDPR-bound systems",
+  },
+  {
+    company: "cloudsquid",
+    role: "Founding engineer",
+    location: "Berlin",
+    period: "Apr 2025 to May 2026",
+    description:
+      "Event-driven pipelines in Go for pulling structure out of unstructured documents.",
+    stack: "Go · gRPC · Kafka",
+  },
+  {
+    company: "Project Eaden",
+    role: "Software engineer",
+    location: "Berlin",
+    period: "Aug 2024 to Apr 2025",
+    description:
+      "Models for high-dimensional data in food-tech R&D, raising predictive accuracy of product performance by 25%. Put the serving and CI paths on solid ground, cutting model iteration from days to hours.",
+    stack: "PyTorch · TensorFlow · FastAPI · AWS · Terraform",
+  },
+  {
+    company: "Telis Energy",
+    role: "Software engineering intern, research & analytics",
+    location: "Remote",
+    period: "Mar 2024 to Oct 2024",
+    description:
+      "Automated wind-turbine layout generation in PyQGIS so site planning could be driven by data rather than by hand, improving output efficiency by 30%. Built the ingestion path for the multimodal datasets behind the environmental simulations.",
+    stack: "Python · PyQGIS · Spark · Airflow",
+  },
+  {
+    company: "Max Planck Institute for Mathematics in the Sciences",
+    role: "Machine learning researcher, Fulbright scholar",
+    location: "Leipzig",
+    period: "2023 to 2024",
+    description:
+      "Algebraic statistics and interpretability: what the higher cumulants of a mixed signal reveal about the independent sources beneath it. Published, and presented at international conferences.",
+    stack: "Algebraic statistics · Independent component analysis",
+  },
+]
 
 export function WorkSection() {
-  const workExperience = [
-    {
-      company: "Superchat",
-      location: "Berlin, Germany",
-      role: "Software Engineer",
-      period: "May 2026 - Present",
-      description:
-        "Build features across Superchat's AI-powered customer messaging platform, which unifies WhatsApp, social, and other channels into a single inbox with chatbot and AI agent automation for 9,000+ businesses on GDPR-compliant German infrastructure.",
-      skills: ["AI Agents", "Messaging Platforms", "Full-Stack", "GDPR"],
-      icon: <MessageSquare className="h-8 w-8 text-amber-700 dark:text-amber-500" />,
-    },
-    {
-      company: "CloudSquid",
-      location: "Berlin, Germany",
-      role: "Founding Engineer",
-      period: "Apr 2025 - May 2026",
-      description:
-        "Lead engineering across CloudSquid's production AI document extraction and workflow platform.",
-      skills: ["AI", "Document Extraction", "Platform Engineering"],
-      icon: <Cloud className="h-8 w-8 text-amber-700 dark:text-amber-500" />,
-    },
-    {
-      company: "Project Eaden",
-      location: "Berlin, Germany",
-      role: "Software Engineer",
-      period: "Aug 2024 - Apr 2025",
-      description:
-        "Implemented advanced ML models (PyTorch, TensorFlow) for high-dimensional data analysis in food tech R&D, improving predictive accuracy of product performance by 25%. Deployed scalable APIs (FastAPI, gRPC) and CICD pipelines on AWS (Terraform, Docker), reducing model iteration cycles from days to hours. Led cross-functional collaborations, integrating complex ML pipelines with business metrics, contributing to a 15% reduction in production costs.",
-      skills: ["PyTorch", "TensorFlow", "FastAPI", "gRPC", "AWS", "Terraform", "Docker"],
-      icon: <Database className="h-8 w-8 text-amber-700 dark:text-amber-500" />,
-    },
-    {
-      company: "Telis Energy",
-      location: "Remote",
-      role: "Software Engineering Intern (Research & Analytics)",
-      period: "Mar 2024 - Oct 2024",
-      description:
-        "Developed Python and PyQGIS scripts automating wind turbine layouts, enabling data-driven site planning and boosting renewable energy output efficiency by 30%. Implemented large-scale data ingestion and transformation pipelines (Apache Spark, Airflow) to handle multimodal datasets, accelerating environmental simulations by 40%.",
-      skills: ["Python", "PyQGIS", "Apache Spark", "Airflow", "Data Engineering"],
-      icon: <Code className="h-8 w-8 text-amber-700 dark:text-amber-500" />,
-    },
-    {
-      company: "Max Planck Institute MiS",
-      location: "Leipzig, Germany",
-      role: "Machine Learning Researcher (Fulbright Scholarship)",
-      period: "Fall 2023 - Fall 2024",
-      description:
-        "Pioneered research on non-independent component analysis and interpretability in algebraic statistics for complex ML systems. Published findings in top-tier statistics journals (e.g., under review at Algebraic Statistics), presented at international conferences.",
-      skills: ["Machine Learning", "Algebraic Statistics", "Research", "Component Analysis"],
-      icon: <Cpu className="h-8 w-8 text-amber-700 dark:text-amber-500" />,
-    },
-  ]
-
   return (
     <div>
-      <SectionHeader
-        title="Work Experience"
-        subtitle="Experience building production platform systems across AI, data, and applied ML."
-      />
+      <SectionHeader label="Work" count={`${positions.length} positions`} title="Where the work has been.">
+        <p>
+          Research first, then startups, and lately the two have converged on
+          the same problem, which is getting structure out of data that arrives
+          without any.
+        </p>
+      </SectionHeader>
 
-      <div className="space-y-8">
-        {workExperience.map((job, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
+      <ol className="border-t border-rule">
+        {positions.map((position) => (
+          <li
+            key={position.company}
+            className="grid gap-x-10 gap-y-4 border-b border-rule py-8 md:grid-cols-12 md:py-10"
           >
-            <Card className="overflow-hidden border-stone-200 dark:border-zinc-800 shadow-md hover:shadow-lg transition-shadow duration-300">
-              <CardHeader className="bg-stone-100 dark:bg-zinc-800/50 pb-4">
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 p-2 bg-stone-200 dark:bg-zinc-700 rounded-md">{job.icon}</div>
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                      <h3 className="text-xl font-semibold">{job.company}</h3>
-                      <span className="text-sm text-zinc-600 dark:text-zinc-400">{job.location}</span>
-                    </div>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mt-1">
-                      <p className="font-medium text-amber-800 dark:text-amber-500">{job.role}</p>
-                      <span className="hidden sm:inline text-zinc-400">•</span>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400">{job.period}</p>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
+            <div className="md:col-span-3">
+              <p className="meta text-ink-muted">
+                {position.current && (
+                  <span
+                    aria-hidden="true"
+                    className="mr-2 inline-block h-[7px] w-[7px] translate-y-[-1px] bg-critical align-middle"
+                  />
+                )}
+                {position.period}
+              </p>
+              <p className="micro mt-2 text-ink-muted">{position.location}</p>
+            </div>
 
-              <CardContent className="pt-6 space-y-4">
-                <p>{job.description}</p>
-
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {job.skills.map((skill, skillIndex) => (
-                    <Badge
-                      key={skillIndex}
-                      variant="secondary"
-                      className="bg-amber-100 text-amber-800 hover:bg-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:hover:bg-amber-900/50"
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+            <div className="md:col-span-9">
+              <h3 className="text-h3">
+                {position.company}
+                {position.current && <span className="sr-only"> (current position)</span>}
+              </h3>
+              <p className={`meta mt-1 ${position.current ? "text-critical" : "text-ink-muted"}`}>
+                {position.role}
+              </p>
+              <p className="mt-4 max-w-measure text-ink-muted">{position.description}</p>
+              <p className="meta mt-4 text-ink-muted">{position.stack}</p>
+            </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   )
 }
-

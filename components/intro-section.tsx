@@ -1,76 +1,126 @@
-"use client"
-
-import { motion } from "framer-motion"
 import Image from "next/image"
 import { SectionHeader } from "@/components/section-header"
-import { Button } from "@/components/ui/button"
-import { FileText, Github, Linkedin } from "lucide-react"
-import Link from "next/link"
+
+interface Fact {
+  term: string
+  detail: string
+  /** Optional trailing link, e.g. the body that funded the grant. */
+  link?: { label: string; href: string }
+}
+
+const facts: Fact[] = [
+  { term: "Now", detail: "Backend engineer, AI team at Superchat, Berlin" },
+  { term: "Studying", detail: "M.S. Computer Science, Georgia Tech: security, networks, systems" },
+  {
+    term: "Before",
+    detail: "Fulbright scholar, MPI for Mathematics in the Sciences",
+    link: { label: "German-American Fulbright Commission", href: "https://www.fulbright.de/" },
+  },
+  { term: "Degree", detail: "B.A. Mathematics, Reed College" },
+  { term: "Handle", detail: "gramscian, after Antonio Gramsci" },
+]
+
+const elsewhere = [
+  { name: "GitHub", href: "https://github.com/monroestephenson" },
+  { name: "LinkedIn", href: "https://linkedin.com/in/mostephenreed" },
+  { name: "Email", href: "mailto:stephensonmonroe@gmail.com" },
+]
 
 export function IntroSection() {
   return (
     <div>
       <SectionHeader
-        title="Introduction"
-        subtitle="Founding engineer building production AI platform systems for complex document and workflow automation."
+        label="About"
+        count="Berlin, since 2024"
+        title="Mathematics first, then software."
       />
 
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="relative h-[500px] w-full overflow-hidden rounded-lg shadow-lg">
-            <Image src="/monroe_profile.jpg" alt="Monroe Stephenson at Reed College" fill className="object-cover" />
+      <div className="grid gap-12 md:grid-cols-12 md:gap-14">
+        <div className="md:col-span-5">
+          <div className="relative aspect-[4/5] w-full overflow-hidden border border-rule">
+            <Image
+              src="/monroe_profile.jpg"
+              alt="Monroe Stephenson"
+              fill
+              sizes="(max-width: 768px) 100vw, 40vw"
+              className="object-cover"
+            />
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <div className="space-y-6">
-            <p className="text-lg">
-              Hello, I'm Monroe Stephenson. I'm a Software Engineer at Superchat!
+        <div className="md:col-span-7">
+          <div className="max-w-measure space-y-5 text-ink-muted">
+            <p>
+              I read mathematics at Reed College: commutative algebra and
+              combinatorics, mostly. I spent the years around it in other
+              people&rsquo;s laboratories: particle physics at Texas Tech, network
+              topology at Portland State, ideals and D-modules at Michigan,
+              simplicial complexes at the Hebrew University of Jerusalem.
             </p>
-
-            <p className="text-lg">
-              I combine software engineering with machine learning research. I'm currently pursuing an M.S. in Computer Science at Georgia Tech, and previously worked on ML interpretability as a Fulbright Scholar at the Max Planck Institute.
+            <p>
+              A Fulbright took me to the Max Planck Institute for Mathematics in
+              the Sciences in Leipzig, where I worked with Bernd Sturmfels on
+              algebraic statistics: specifically, what the cumulant tensors of
+              a mixed signal can tell you about the sources underneath it.
             </p>
-
-            <div className="pt-4 flex flex-wrap gap-4">
-              <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                <Button className="bg-amber-700 hover:bg-amber-800 text-white">
-                  <FileText className="mr-2 h-4 w-4" /> Download Resume
-                </Button>
-              </Link>
-
-              <Link href="https://github.com/monroestephenson" target="_blank" rel="noopener noreferrer">
-                <Button
-                  variant="outline"
-                  className="border-amber-700 text-amber-700 hover:bg-amber-50 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-zinc-800"
-                >
-                  <Github className="mr-2 h-4 w-4" /> GitHub
-                </Button>
-              </Link>
-
-              <Link href="https://linkedin.com/in/monroe-stephenson" target="_blank" rel="noopener noreferrer">
-                <Button
-                  variant="outline"
-                  className="border-amber-700 text-amber-700 hover:bg-amber-50 dark:border-amber-500 dark:text-amber-500 dark:hover:bg-zinc-800"
-                >
-                  <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
-                </Button>
-              </Link>
-            </div>
+            <p>
+              I write software now, in Berlin, on Superchat&rsquo;s AI team, and the
+              two halves turn out to be the same job. Both are about deciding
+              which structure is really there and which one you are imposing.
+            </p>
+            <p>
+              What has my attention outside work is intelligence under
+              constraint: how much capability actually survives inside a fixed
+              parameter count, a fixed memory budget, the RAM in a laptop I
+              already own. Most of the reasons a thing supposedly won&rsquo;t fit
+              turn out to be assumptions rather than limits, and I find the
+              difference worth chasing.
+            </p>
           </div>
-        </motion.div>
+
+          <dl className="mt-10 border-t border-rule">
+            {facts.map((fact) => (
+              <div
+                key={fact.term}
+                className="flex flex-col gap-1 border-b border-rule py-3 sm:flex-row sm:gap-8"
+              >
+                <dt className="micro w-32 shrink-0 pt-1 text-ink-muted">{fact.term}</dt>
+                <dd className="meta text-ink">
+                  {fact.detail}
+                  {fact.link && (
+                    <>
+                      <br />
+                      <a
+                        href={fact.link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="link text-ink-muted"
+                      >
+                        {fact.link.label}
+                      </a>
+                    </>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 meta">
+            {/* All of these leave the app, so plain anchors rather than next/link. */}
+            {elsewhere.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                className="link text-ink-muted"
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
 }
-

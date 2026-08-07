@@ -1,37 +1,43 @@
 "use client"
 
-import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 
+/**
+ * Light is the print, dark is the negative, so the control says which one you
+ * are about to get, rather than showing a sun or a moon.
+ */
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
-  // Avoid hydration mismatch
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  if (!mounted) {
-    return (
-      <Button variant="ghost" size="icon" className="opacity-0">
-        <Sun className="h-[1.2rem] w-[1.2rem]" />
-      </Button>
-    )
-  }
+  const isDark = resolvedTheme === "dark"
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="text-zinc-700 dark:text-zinc-300 hover:text-amber-800 dark:hover:text-amber-500 hover:bg-transparent"
+    <button
+      type="button"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="micro text-ink-muted transition-colors hover:text-ink"
+      aria-label={
+        mounted
+          ? `Switch to ${isDark ? "print" : "negative"}`
+          : "Switch colour scheme"
+      }
     >
-      {theme === "dark" ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+      <span
+        aria-hidden="true"
+        className={`inline-flex items-center gap-2 ${mounted ? "" : "opacity-0"}`}
+      >
+        {/* A swatch, so the control reads as one before the word is parsed. */}
+        <span
+          className={`h-[9px] w-[9px] border border-current ${isDark ? "bg-transparent" : "bg-current"}`}
+        />
+        {isDark ? "Print" : "Negative"}
+      </span>
+    </button>
   )
 }
-

@@ -2,159 +2,207 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Palette note.
+
+  There is no brand accent on this site. The palette is the state scale of an
+  abelian sandpile: a cell holds 0, 1, 2 or 3 grains (--s0 … --s3), and a cell
+  that reaches 3 is one grain away from toppling. That critical state is
+  --critical, the only warm value in the system, and it marks what is current.
+
+  Light is the print; dark is the negative.
+*/
+
 @layer base {
   :root {
-    --background: 60 5% 96%;
-    --foreground: 240 10% 4%;
+    --paper: 220 221 214;
+    --ink: 18 41 60;
+    --ink-muted: 70 90 105;
+    --rule: 185 192 188;
+    --critical: 110 37 48;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 4%;
+    /*
+      Sandpile grain states. Deliberately kept off black: this is a print in
+      Prussian blue, and a state-3 cell that reads as ink turns the whole plate
+      into a dark mass instead of a photograph of one.
+    */
+    --s0: 185 192 188;
+    --s1: 175 192 200;
+    --s2: 92 137 165;
+    --s3: 30 74 107;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 4%;
+    /* type scale */
+    --t-hero: clamp(2.75rem, 1.1rem + 6.6vw, 6.25rem);
+    --t-h2: clamp(1.75rem, 1.15rem + 2.4vw, 2.875rem);
+    --t-h3: clamp(1.1875rem, 1.06rem + 0.55vw, 1.5rem);
+    --t-body: clamp(1rem, 0.975rem + 0.11vw, 1.0625rem);
+    --t-meta: 0.8125rem;
+    --t-micro: 0.6875rem;
 
-    --primary: 36 60% 45%;
-    --primary-foreground: 0 0% 100%;
+    /* the lattice the sandpile is defined on */
+    --lattice-size: 34px;
 
-    --secondary: 60 5% 96%;
-    --secondary-foreground: 240 6% 10%;
+    --radius: 0px;
 
-    --muted: 60 5% 96%;
-    --muted-foreground: 240 4% 46%;
-
-    --accent: 36 60% 45%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 20 5% 90%;
-    --input: 20 5% 90%;
-    --ring: 36 60% 45%;
-
-    --radius: 0.5rem;
+    /* shadcn compatibility, retuned to the palette above */
+    --background: 66 11% 85%;
+    --foreground: 208 54% 15%;
+    --card: 66 11% 85%;
+    --card-foreground: 208 54% 15%;
+    --popover: 66 11% 85%;
+    --popover-foreground: 208 54% 15%;
+    --primary: 208 54% 15%;
+    --primary-foreground: 66 11% 85%;
+    --secondary: 150 4% 77%;
+    --secondary-foreground: 208 54% 15%;
+    --muted: 150 4% 77%;
+    --muted-foreground: 205 20% 34%;
+    --accent: 150 4% 77%;
+    --accent-foreground: 208 54% 15%;
+    --destructive: 351 50% 29%;
+    --destructive-foreground: 66 11% 85%;
+    --border: 150 4% 77%;
+    --input: 150 4% 77%;
+    --ring: 205 38% 38%;
   }
 
   .dark {
-    --background: 240 5% 10%;
-    --foreground: 0 0% 95%;
+    --paper: 12 22 32;
+    --ink: 214 223 228;
+    --ink-muted: 143 163 176;
+    --rule: 34 50 63;
+    --critical: 196 105 107;
 
-    --card: 240 5% 10%;
-    --card-foreground: 0 0% 95%;
+    --s0: 20 32 43;
+    --s1: 46 74 94;
+    --s2: 110 147 168;
+    --s3: 195 212 220;
 
-    --popover: 240 5% 10%;
-    --popover-foreground: 0 0% 95%;
-
-    --primary: 36 60% 50%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 240 4% 16%;
-    --secondary-foreground: 0 0% 95%;
-
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 65%;
-
-    --accent: 36 60% 50%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 0 0% 95%;
-
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
-    --ring: 36 60% 50%;
+    --background: 209 45% 9%;
+    --foreground: 200 24% 87%;
+    --card: 209 45% 9%;
+    --card-foreground: 200 24% 87%;
+    --popover: 209 45% 9%;
+    --popover-foreground: 200 24% 87%;
+    --primary: 200 24% 87%;
+    --primary-foreground: 209 45% 9%;
+    --secondary: 206 30% 19%;
+    --secondary-foreground: 200 24% 87%;
+    --muted: 206 30% 19%;
+    --muted-foreground: 203 17% 63%;
+    --accent: 206 30% 19%;
+    --accent-foreground: 200 24% 87%;
+    --destructive: 359 43% 59%;
+    --destructive-foreground: 209 45% 9%;
+    --border: 206 30% 19%;
+    --input: 206 30% 19%;
+    --ring: 203 26% 55%;
   }
-}
-
-/* Apply smooth transitions to HTML and BODY elements specifically */
-html,
-body {
-  transition: background-color 1.2s ease, color 1.2s ease;
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: rgb(var(--rule));
   }
+
+  html {
+    scroll-behavior: smooth;
+    /* the fixed rule at the top of the page shouldn't clip anchor targets */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    background-color: rgb(var(--paper));
+    color: rgb(var(--ink));
+    font-size: var(--t-body);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Add smooth transition for theme changes */
-  :root {
-    --theme-transition-duration: 1.2s;
-  }
-  
-  /* Apply transitions to all elements */
-  *,
-  *::before,
-  *::after {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-    transition-duration: var(--theme-transition-duration);
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Exceptions - don't transition these properties */
-  .no-transition, 
-  .no-transition *,
-  .no-transition::before,
-  .no-transition::after,
-  button:active,
-  a:active {
-    transition: none !important;
+  /* Newsreader carries the display role. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-newsreader), ui-serif, Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.018em;
+    line-height: 1.08;
+    text-wrap: balance;
   }
 
-  /* Custom font variables */
-  .font-sans {
-    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  ::selection {
+    background-color: rgb(var(--s2));
+    color: rgb(var(--paper));
   }
 
-  .font-playfair {
-    font-family: var(--font-playfair), ui-serif, Georgia, serif;
+  :focus-visible {
+    outline: 2px solid rgb(var(--critical));
+    outline-offset: 3px;
   }
-}
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
+  /* Nothing animates by default. Motion is opted into, per element. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
 
-/* Fallingwater-inspired horizontal line styling */
-.horizontal-line {
-  height: 1px;
-  background-color: hsl(var(--primary) / 0.2);
-  width: 100%;
-}
-
-/* Custom animations */
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-  100% {
-    transform: translateY(0px);
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
+@layer components {
+  /*
+    The square lattice the sandpile is defined on. Behind the hero and in
+    section markers only, never as page-wide wallpaper.
+  */
+  .lattice {
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--rule) / 0.55) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgb(var(--rule) / 0.55) 1px, transparent 1px);
+    background-size: var(--lattice-size) var(--lattice-size);
+    background-position: center center;
+  }
 
-/* Fallingwater-inspired styling */
-.fallingwater-shadow {
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
-}
+  /* Metadata voice: dates, counts, identifiers. */
+  .meta {
+    font-family: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
+    font-size: var(--t-meta);
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+  }
 
-/* Image gallery hover effects */
-.gallery-item:hover .gallery-overlay {
-  opacity: 1;
-}
+  .micro {
+    font-family: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
+    font-size: var(--t-micro);
+    line-height: 1.4;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
 
-.gallery-overlay {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+  /* A link that reveals its underline rather than losing it. */
+  .link {
+    text-decoration: underline;
+    text-decoration-color: rgb(var(--s1));
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 150ms ease, color 150ms ease;
+  }
 
+  .link:hover {
+    color: rgb(var(--critical));
+    text-decoration-color: rgb(var(--critical));
+  }
+}

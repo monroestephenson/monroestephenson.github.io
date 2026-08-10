@@ -19,16 +19,18 @@ export const metadata: Metadata = {
 const threads = [
   {
     area: "Database systems",
-    title: "Constraint-aware cardinality bounds",
+    title: "Optimal Prefix Ordering for Reverse-Hölder Cardinality Lower Bounds",
     description:
-      "I am studying database constraints and cardinality estimation, including optimal prefix ordering for reverse-Hölder cardinality lower bounds.",
+      "I am studying database constraints and cardinality estimation, including how prefix ordering affects provable lower bounds on join cardinalities.",
+    href: "/papers/optimal-prefix-ordering-reverse-holder.pdf",
   },
   {
     area: "Algebraic combinatorics",
-    title: "Total anisotropy on the moment curve",
+    title:
+      "Total Anisotropy on the Moment Curve for Simplicial 1-Cycles in Characteristic Not Two",
     description:
-      "I am working on Conjecture 6.1: total anisotropy on the moment curve in positive characteristic.",
-    href: "https://doi.org/10.1007/s00493-025-00192-w",
+      "A first result toward Conjecture 6.1, proving the moment-curve statement for arbitrary simplicial 1-cycles over fields of characteristic different from two.",
+    href: "/papers/total-anisotropy-simplicial-1-cycles.pdf",
   },
   {
     area: "Mathematics",

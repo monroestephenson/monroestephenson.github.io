@@ -108,6 +108,13 @@ export function ResearchSection() {
           Read backwards, it is a fairly straight line from particle detectors to
           asking what a tensor knows about the sources under a signal.
         </p>
+        <p className="mt-4">
+          Current experimental work with AI agents lives at{" "}
+          <Link href="/cranked" className="link">
+            Cranked Mathematics
+          </Link>
+          .
+        </p>
       </SectionHeader>
 
       <ol className="border-t border-rule">

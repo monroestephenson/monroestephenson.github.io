@@ -57,6 +57,9 @@ jobs:
             echo '<meta http-equiv="refresh" content="0;url=./app">' > out/index.html
           fi
 
+      - name: Verify literature output
+        run: test -f out/literature/index.html
+
       - name: Create .nojekyll file
         run: touch out/.nojekyll
 

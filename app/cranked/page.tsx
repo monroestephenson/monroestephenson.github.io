@@ -16,7 +16,18 @@ export const metadata: Metadata = {
   },
 }
 
-const threads = [
+type Thread = {
+  area: string
+  title: string
+  description: string
+  href?: string
+  resources?: Array<{
+    label: string
+    href: string
+  }>
+}
+
+const threads: Thread[] = [
   {
     area: "Database systems",
     title: "Optimal Prefix Ordering for Reverse-Hölder Cardinality Lower Bounds",
@@ -26,11 +37,19 @@ const threads = [
   },
   {
     area: "Algebraic combinatorics",
-    title:
-      "Total Anisotropy on the Moment Curve for Simplicial 1-Cycles in Characteristic Not Two",
+    title: "Total Anisotropy on the Moment Curve for Simplicial 1-Cycles",
     description:
-      "A first result toward Conjecture 6.1, proving the moment-curve statement for arbitrary simplicial 1-cycles over fields of characteristic different from two.",
-    href: "/papers/total-anisotropy-simplicial-1-cycles.pdf",
+      "A proof of the moment-curve statement for arbitrary simplicial 1-cycles over every field, including characteristic two, with a machine-checked Lean formalization.",
+    resources: [
+      {
+        label: "Manuscript (PDF)",
+        href: "/papers/total-anisotropy-simplicial-1-cycles.pdf",
+      },
+      {
+        label: "Lean formalization",
+        href: "https://github.com/monroestephenson/d2-moment-curve-anisotropy-lean",
+      },
+    ],
   },
   {
     area: "Mathematics",
@@ -115,6 +134,21 @@ export default function CrankedPage() {
                   <p className="mt-4 max-w-measure text-ink-muted">
                     {thread.description}
                   </p>
+                  {thread.resources ? (
+                    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+                      {thread.resources.map((resource) => (
+                        <Link
+                          key={resource.href}
+                          href={resource.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="micro link decoration-transparent hover:decoration-current"
+                        >
+                          {resource.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               </li>
             ))}

@@ -6,11 +6,11 @@ import { Footer } from "@/components/footer"
 export const metadata: Metadata = {
   title: "Cranked Mathematics | Monroe Stephenson",
   description:
-    "Experimental work in database constraints, algebraic combinatorics, and AI-assisted mathematical research.",
+    "AI-assisted mathematical research in database systems and algebraic combinatorics, with reproducible computation and formal verification.",
   openGraph: {
     title: "Cranked Mathematics",
     description:
-      "Experimental work in database constraints, algebraic combinatorics, and AI-assisted mathematical research.",
+      "AI-assisted mathematical research in database systems and algebraic combinatorics, with reproducible computation and formal verification.",
     url: "https://gramscian.com/cranked",
     type: "website",
   },
@@ -37,17 +37,21 @@ const threads: Thread[] = [
   },
   {
     area: "Algebraic combinatorics",
-    title: "Total Anisotropy on the Moment Curve for Simplicial 1-Cycles",
+    title: "The Moment-Curve Anisotropy Conjecture for Simplicial 1-Cycles",
     description:
-      "A proof of the moment-curve statement for arbitrary simplicial 1-cycles over every field, including characteristic two, with a machine-checked Lean formalization.",
+      "A proof of the d = 2 case of the moment-curve anisotropy conjecture. For every field and every nonzero simplicial 1-cycle with arbitrary nonzero coefficients on its support, the moment-curve middle form is anisotropic; consequently, the associated Gorensteinification is totally anisotropic. The graph-form theorem and its low-degree interfaces are machine-checked in Lean 4.",
     resources: [
       {
-        label: "Manuscript (PDF)",
+        label: "Revised manuscript (PDF)",
         href: "/papers/total-anisotropy-simplicial-1-cycles.pdf",
       },
       {
+        label: "Manuscript source",
+        href: "https://github.com/monroestephenson/p-anisotropy/tree/2e3b9f131c5ae2ed46e5e166619a2386afd93439/paper",
+      },
+      {
         label: "Lean formalization",
-        href: "https://github.com/monroestephenson/d2-moment-curve-anisotropy-lean",
+        href: "https://github.com/monroestephenson/d2-moment-curve-anisotropy-lean/tree/3bcbca9faab0a670131b46b19b521273c4f0ace2",
       },
     ],
   },
@@ -95,17 +99,17 @@ export default function CrankedPage() {
 
           <div className="mt-10 max-w-measure space-y-5 text-ink-muted md:mt-14">
             <p>
-              Cranked Mathematics is my name for an experimental way of doing
-              research: I bring my background in mathematics to conjectures and
-              ideas that interest me, while using AI agents heavily for search,
-              computation, attempted proofs, and formalization.
+              Cranked Mathematics is an experimental research program. I bring
+              my mathematical background to problems that interest me and use
+              AI agents intensively for literature search, computation, proof
+              exploration, and formalization.
             </p>
             <p>
-              The point is both mathematical and empirical. I want to make
-              progress on the problems, but also to find the limits of
-              LLM-based intelligence in serious mathematical work. The agents
-              do not replace verification; part of the project is learning
-              exactly where that distinction becomes decisive.
+              The project has two aims: to make mathematical progress and to
+              study the capabilities and limits of LLM-based agents in serious
+              research. Agent output is treated as provisional until the
+              resulting claims are supported by an independently readable
+              proof, reproducible computation, or formal verification.
             </p>
           </div>
 

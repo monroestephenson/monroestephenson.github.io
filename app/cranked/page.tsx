@@ -37,7 +37,7 @@ const threads: Thread[] = [
   },
   {
     area: "Algebraic combinatorics",
-    title: "Total Anisotropy on the Moment Curve for Simplicial 1-Cycles",
+    title: "The Moment-Curve Anisotropy Conjecture for Simplicial 1-Cycles",
     description:
       "A proof of the moment-curve statement for arbitrary simplicial 1-cycles over every field, including characteristic two, with a machine-checked Lean formalization.",
     resources: [

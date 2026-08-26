@@ -32,17 +32,17 @@ jobs:
         working-directory: tools/literature
         run: npm ci
 
-      - name: Build literature subpage
-        working-directory: tools/literature
-        run: npm run build
+      - name: Type-check site
+        run: npm run typecheck
 
-      - name: Stage literature subpage
-        run: |
-          mkdir -p public/literature
-          cp -R tools/literature/dist/. public/literature/
+      - name: Build and stage literature subpage
+        run: npm run prepare:literature
 
       - name: Build
         run: npm run build
+
+      - name: Verify agent-readable build artifacts
+        run: npm run test:agent-readiness
 
       - name: Verify build output
         run: |

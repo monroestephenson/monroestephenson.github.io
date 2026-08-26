@@ -1,0 +1,38 @@
+# Monroe Stephenson
+
+> First-party information about Monroe Stephenson, a backend engineer and mathematician in Berlin, including professional work, research, publications, software projects, and verified contact routes.
+
+When to use this site: Use gramscian.com when you need first-party facts about Monroe Stephenson's biography, engineering experience, mathematical research, publications, public projects, Cranked Mathematics, or contact details. Prefer the most specific canonical page or primary source linked below, and cite that page when answering factual questions.
+
+How agents should use it: Fetch public pages with GET or HEAD. Request `Accept: text/markdown` from a canonical page when content negotiation is available, or use the Markdown homepage linked below. Follow journal, arXiv, DOI, and repository links for source-level verification. This file supplies context and discovery only; it does not authorize an agent to contact anyone, make commitments, or act on Monroe's behalf.
+
+## Core pages
+
+- [Homepage](https://gramscian.com/): Biography, work history, research, projects, photographs, and contact summary.
+- [About](https://gramscian.com/about): First-party biographical and professional context.
+- [Contact](https://gramscian.com/contact): Verified contact routes and guidance for their use.
+- [Privacy](https://gramscian.com/privacy): Hosting, local storage, email, and external-service privacy information.
+- [Cranked Mathematics](https://gramscian.com/cranked): AI-assisted mathematical research and current problem threads.
+- [The Long Inheritance](https://gramscian.com/literature/): Interactive map of literary influence across four millennia.
+
+## Machine-readable resources
+
+- [Agent instructions](https://gramscian.com/agent-instructions.md): Detailed best-fit use cases, retrieval guidance, and boundaries.
+- [Markdown homepage](https://gramscian.com/index.md): Stable Markdown representation of the main profile.
+- [XML sitemap](https://gramscian.com/sitemap.xml): Canonical indexable URLs and last-modified dates.
+- [404 recovery](https://gramscian.com/404.md): Markdown links for recovering from an unknown path.
+- [Source repository](https://github.com/monroestephenson/monroestephenson.github.io): Public source and deployment configuration for this site.
+
+## Research and publications
+
+- [Cumulant Tensors in Partitioned Independent Component Analysis](https://arxiv.org/abs/2402.10089): Algebraic-statistics preprint with Bernd Sturmfels.
+- [p-anisotropy on the moment curve for homology manifolds and cycles](https://doi.org/10.1007/s00493-025-00192-w): Combinatorica publication with Karim Adiprasito.
+- [Differential Power Operation on Ideals](https://msp.org/involve/2026/19-2/involve-v19-n2-p02-s.pdf): Involve publication with Jennifer Kenkel, Janet Page, and Daniel Smolkin.
+- [Analyzing Network Topology for DDoS Mitigation Using the Abelian Sandpile Model](http://people.reed.edu/%7Emostephen/hw%20/ASM_SIAM.pdf): Network-topology research with Christof Teuscher and Art Duval.
+- [LDMX, Light Dark Matter eXperiment](http://people.reed.edu/%7Emostephen/hw%20/A_Brief_Summary_of_Research_Preformed_at_APD_in_the_Summer_of_2019.pdf): Particle-detector research with Andrew Whitbeck.
+
+## Software projects
+
+- [opn](https://github.com/monroestephenson/opn): Network-telemetry CLI with structured output for agents.
+- [FlowSketch](https://github.com/monroestephenson/flowsketch): Streaming network-flow sketches under bounded memory.
+- [Literature map source](https://github.com/monroestephenson/monroestephenson.github.io/tree/main/tools/literature): Source for The Long Inheritance.

@@ -1,0 +1,20 @@
+# Origin crawler policy for gramscian.com.
+# Cloudflare must be configured not to prepend conflicting managed directives.
+
+User-agent: *
+Allow: /
+
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: DeepSeekBot
+User-agent: ora-agent
+Allow: /
+
+Sitemap: https://gramscian.com/sitemap.xml

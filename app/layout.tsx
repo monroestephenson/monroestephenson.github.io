@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Newsreader, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { openGraphImage, profileImage, siteDescription, siteName, siteUrl } from "@/lib/site"
 
 const newsreader = Newsreader({
   subsets: ["latin"],
@@ -26,17 +27,26 @@ const plexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gramscian.com"),
-  title: "Monroe Stephenson",
-  description:
-    "Backend engineer in Berlin, on Superchat's AI team. Algebraic statistics, network telemetry, and what capability survives under a hard constraint.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteName,
+    template: `%s | ${siteName}`,
+  },
+  description: siteDescription,
   openGraph: {
-    title: "Monroe Stephenson",
-    description:
-      "Backend engineer in Berlin, on Superchat's AI team. Algebraic statistics, network telemetry, and what capability survives under a hard constraint.",
-    url: "https://gramscian.com",
-    siteName: "Monroe Stephenson",
+    title: siteName,
+    description: siteDescription,
+    url: siteUrl,
+    siteName,
     type: "website",
+    locale: "en_US",
+    images: [openGraphImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteName,
+    description: siteDescription,
+    images: [profileImage],
   },
 }
 
@@ -47,6 +57,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="describedby" href="/llms.txt" />
+      </head>
       <body
         className={`${newsreader.variable} ${plexSans.variable} ${plexMono.variable} font-sans`}
       >

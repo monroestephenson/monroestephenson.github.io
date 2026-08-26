@@ -1,0 +1,31 @@
+name: Agent readiness
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install site dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Install literature dependencies
+        run: npm --prefix tools/literature ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build and verify exported artifacts
+        run: npm test

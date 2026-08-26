@@ -8,6 +8,7 @@ try {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  distDir: process.env.GRAMSCIAN_DIST_DIR || '.next',
   eslint: {
     ignoreDuringBuilds: true,
   },

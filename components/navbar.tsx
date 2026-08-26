@@ -6,11 +6,11 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { cn } from "@/lib/utils"
 
 const sections = [
-  { name: "Work", href: "#work", id: "work" },
-  { name: "Research", href: "#research", id: "research" },
-  { name: "Projects", href: "#projects", id: "projects" },
-  { name: "Plates", href: "#plates", id: "plates" },
-  { name: "Contact", href: "#contact", id: "contact" },
+  { name: "Work", href: "/#work", id: "work" },
+  { name: "Research", href: "/#research", id: "research" },
+  { name: "Projects", href: "/#projects", id: "projects" },
+  { name: "Plates", href: "/#plates", id: "plates" },
+  { name: "Contact", href: "/#contact", id: "contact" },
 ]
 
 export function Navbar() {

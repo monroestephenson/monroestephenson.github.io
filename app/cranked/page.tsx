@@ -2,17 +2,22 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Footer } from "@/components/footer"
+import { openGraphImage } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Cranked Mathematics | Monroe Stephenson",
+  title: "Cranked Mathematics",
   description:
     "Experimental work in database constraints, algebraic combinatorics, and AI-assisted mathematical research.",
+  alternates: {
+    canonical: "https://gramscian.com/cranked",
+  },
   openGraph: {
     title: "Cranked Mathematics",
     description:
       "Experimental work in database constraints, algebraic combinatorics, and AI-assisted mathematical research.",
     url: "https://gramscian.com/cranked",
     type: "website",
+    images: [openGraphImage],
   },
 }
 

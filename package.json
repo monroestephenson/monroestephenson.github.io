@@ -6,7 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "build:literature": "npm --prefix tools/literature run build",
+    "stage:literature": "node scripts/stage-literature.mjs",
+    "prepare:literature": "npm run build:literature && npm run stage:literature",
+    "test": "npm run prepare:literature && GRAMSCIAN_DIST_DIR=.gramscian-next npm run build && AGENT_BUILD_DIR=.gramscian-next npm run test:agent-readiness",
+    "test:agent-readiness": "node --test tests/agent-readiness.test.mjs",
+    "verify:agent-endpoints": "node scripts/verify-agent-endpoints.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
